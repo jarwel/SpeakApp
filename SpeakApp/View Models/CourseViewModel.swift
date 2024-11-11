@@ -10,7 +10,8 @@ import UIKit
 class CourseViewModel {
     var course: Course?
     
-    private static let defaultImage = UIImage(named: "BrokenLink")!
+    private static let unitImage = UIImage(named: "Unit")!
+    private static let dayImage = UIImage(named: "Day")!
     
     func fetch() {
         do {
@@ -23,15 +24,35 @@ class CourseViewModel {
         }
     }
     
-    func imageForUrl(_ thumbnailImageUrl: String, completion: @escaping (UIImage) -> Void) {
-        guard let url = URL(string: thumbnailImageUrl) else {
-            completion(Self.defaultImage)
+    func imageForCourse(_ course: Course, completion: @escaping (UIImage) -> Void) {
+        guard let url = URL(string: course.info.thumbnailImageUrl) else {
+            completion(Self.dayImage)
             return
         }
         
         DataService.shared.dataForUrl(url) { data in
             guard let data = data, let image = UIImage(data: data) else {
-                completion(Self.defaultImage)
+                completion(Self.dayImage)
+                return
+            }
+            
+            completion(image)
+        }
+    }
+    
+    func imageForUnit() -> UIImage {
+        return Self.unitImage
+    }
+    
+    func imageForDay(_ day: Day, completion: @escaping (UIImage) -> Void) {
+        guard let url = URL(string: day.thumbnailImageUrl) else {
+            completion(Self.dayImage)
+            return
+        }
+        
+        DataService.shared.dataForUrl(url) { data in
+            guard let data = data, let image = UIImage(data: data) else {
+                completion(Self.dayImage)
                 return
             }
             

@@ -14,17 +14,20 @@ class CourseTableViewController: UIViewController {
     @IBOutlet weak var thumbnailImageView: UIImageView!
     @IBOutlet weak var tableView: UITableView!
     
+    private static let tableCellReuseIdentifier = "CourseTableViewCell"
+    private static let tableHeaderReuseIdentifier = "CourseTableViewHeaderView"
+    
     let viewModel = CourseViewModel()
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         viewModel.fetch()
-        if let info = viewModel.course?.info {
+        if let course = viewModel.course {
             titleLabel.font = .preferredFont(forTextStyle: .headline)
-            titleLabel.text =  info.title
+            titleLabel.text =  course.info.title
             subtitleLabel.font = .preferredFont(forTextStyle: .subheadline)
-            subtitleLabel.text = info.subtitle
-            viewModel.imageForUrl(info.thumbnailImageUrl) { [weak self] image in
+            subtitleLabel.text = course.info.subtitle
+            viewModel.imageForCourse(course){ [weak self] image in
                 self?.thumbnailImageView.image = image
             }
         }
@@ -43,7 +46,7 @@ extension CourseTableViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CourseTableViewCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: Self.tableCellReuseIdentifier, for: indexPath)
         guard let cell = cell as? CourseTableViewCell else {
             return cell
         }
@@ -56,7 +59,7 @@ extension CourseTableViewController: UITableViewDataSource {
         cell.subtitleLabel.font = .preferredFont(forTextStyle: .subheadline)
         cell.subtitleLabel.text = day.subtitle
         cell.tumbnailImageView.image = nil
-        viewModel.imageForUrl(day.thumbnailImageUrl) { image in
+        viewModel.imageForDay(day) { image in
             // Only update the image if cell has not been reused
             if indexPath == tableView.indexPath(for: cell) {
                 cell.tumbnailImageView.image = image
@@ -65,8 +68,18 @@ extension CourseTableViewController: UITableViewDataSource {
         return cell
     }
     
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return viewModel.course?.units[section].id
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard let headerView = tableView.dequeueReusableCell(withIdentifier: Self.tableHeaderReuseIdentifier) as? CourseTableViewHeaderView else {
+            return nil
+        }
+        
+        headerView.titleLabel.text = viewModel.course?.units[section].id
+        headerView.thumbnailImageView.image = viewModel.imageForUnit()
+        return headerView
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return CGFloat(60)
     }
 }
 
