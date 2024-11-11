@@ -10,7 +10,6 @@ import Foundation
 class CourseViewModel {
     var course: Course?
     
-    
     func fetch() {
         do {
             let decoder = JSONDecoder()

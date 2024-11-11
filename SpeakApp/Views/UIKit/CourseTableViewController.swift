@@ -45,6 +45,10 @@ extension CourseTableViewController: UITableViewDataSource {
         cell.subtitleLabel.text = day.subtitle
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return viewModel.course?.units[section].id
+    }
 }
 
 extension CourseTableViewController: UITableViewDelegate {

@@ -8,6 +8,8 @@
 import SwiftUI
 import UIKit
 
+// Adding this subclase for better seperation of SwiftUI and UIKit components
+
 class RecordHostingController: UIHostingController<RecordView> {
     
     @MainActor @preconcurrency required dynamic init?(coder aDecoder: NSCoder) {
