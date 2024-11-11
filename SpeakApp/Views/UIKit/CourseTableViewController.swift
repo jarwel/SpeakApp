@@ -9,6 +9,9 @@ import UIKit
 
 
 class CourseTableViewController: UIViewController {
+    @IBOutlet weak var subtitleLabel: UILabel!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var thumbnailImageView: UIImageView!
     @IBOutlet weak var tableView: UITableView!
     
     let viewModel = CourseViewModel()
@@ -16,6 +19,15 @@ class CourseTableViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         viewModel.fetch()
+        if let info = viewModel.course?.info {
+            titleLabel.font = .preferredFont(forTextStyle: .headline)
+            titleLabel.text =  info.title
+            subtitleLabel.font = .preferredFont(forTextStyle: .subheadline)
+            subtitleLabel.text = info.subtitle
+            viewModel.imageForUrl(info.thumbnailImageUrl) { [weak self] image in
+                self?.thumbnailImageView.image = image
+            }
+        }
         tableView.reloadData()
     }
 }
@@ -43,6 +55,13 @@ extension CourseTableViewController: UITableViewDataSource {
         cell.titleLabel.text =  day.title
         cell.subtitleLabel.font = .preferredFont(forTextStyle: .subheadline)
         cell.subtitleLabel.text = day.subtitle
+        cell.tumbnailImageView.image = nil
+        viewModel.imageForUrl(day.thumbnailImageUrl) { image in
+            // Only update the image if cell has not been reused
+            if indexPath == tableView.indexPath(for: cell) {
+                cell.tumbnailImageView.image = image
+            }
+        }
         return cell
     }
     
