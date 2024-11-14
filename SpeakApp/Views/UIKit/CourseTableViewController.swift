@@ -19,6 +19,14 @@ class CourseTableViewController: UIViewController {
     
     let viewModel = CourseViewModel()
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        tableView.sectionHeaderHeight = UITableView.automaticDimension
+        tableView.estimatedSectionHeaderHeight = 60
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 80
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         viewModel.fetch()
@@ -76,10 +84,6 @@ extension CourseTableViewController: UITableViewDataSource {
         headerView.titleLabel.text = viewModel.course?.units[section].id
         headerView.thumbnailImageView.image = viewModel.imageForUnit()
         return headerView
-    }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return CGFloat(60)
     }
 }
 
