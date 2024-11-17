@@ -12,4 +12,8 @@ struct Day: Codable {
     let title: String
     let subtitle: String
     let thumbnailImageUrl:  String
+    
+    var formattedId: String {
+        return String(format: "%02d", Int(id.dropFirst(4)) ?? 0)
+    }
 }

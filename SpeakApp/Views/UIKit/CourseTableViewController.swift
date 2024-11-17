@@ -10,10 +10,10 @@ import UIKit
 
 class CourseTableViewController: UIViewController {
     @IBOutlet weak var headerView: UIView!
+    @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var subtitleLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var thumbnailImageView: UIImageView!
-    @IBOutlet weak var tableView: UITableView!
     
     private static let tableCellReuseIdentifier = "CourseTableViewCell"
     private static let tableHeaderReuseIdentifier = "CourseTableViewHeaderView"
@@ -34,7 +34,7 @@ class CourseTableViewController: UIViewController {
         super.viewDidAppear(animated)
         headerView.backgroundColor = UIColor(patternImage: Self.headerBackground)
         if let course = viewModel.course {
-            titleLabel.font = .preferredFont(forTextStyle: .headline)
+            titleLabel.font = .preferredFont(forTextStyle: .extraLargeTitle2)
             titleLabel.text =  course.info.title
             subtitleLabel.font = .preferredFont(forTextStyle: .subheadline)
             subtitleLabel.text = course.info.subtitle
@@ -64,6 +64,7 @@ extension CourseTableViewController: UITableViewDataSource {
         }
         
         if let day = viewModel.course?.units[indexPath.section].days[indexPath.row] {
+            cell.dayLabel.text = day.formattedId
             cell.titleLabel.font = .preferredFont(forTextStyle: .headline)
             cell.titleLabel.text =  day.title
             cell.subtitleLabel.font = .preferredFont(forTextStyle: .subheadline)
