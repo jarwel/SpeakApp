@@ -8,7 +8,7 @@
 import Foundation
 
 struct Info: Codable {
-    var title: String
-    var subtitle: String
-    var thumbnailImageUrl: String
+    let title: String
+    let subtitle: String
+    let thumbnailImageUrl: String
 }

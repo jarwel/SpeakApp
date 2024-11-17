@@ -8,7 +8,6 @@
 import Foundation
 
 class DataService {
-    
     static let shared = DataService()
     
     private let cache = NSCache<NSURL, NSData>()
@@ -18,7 +17,7 @@ class DataService {
     func dataForUrl(_ url: URL, _ completion: @escaping (Data?) -> Void) {
         if let data = cache.object(forKey: url as NSURL) {
             DispatchQueue.main.async {
-                print("Cached image: \(url.absoluteString)")
+                print("Image cached: \(url.absoluteString)")
                 completion(data as Data)
             }
             return
@@ -29,7 +28,7 @@ class DataService {
                 let data = try Data(contentsOf: url)
                 self?.cache.setObject(data as NSData, forKey: url as NSURL)
                 DispatchQueue.main.async {
-                    print("Fetching image: \(url.absoluteString)")
+                    print("Image fetched: \(url.absoluteString)")
                     completion(data)
                 }
             } catch {

@@ -8,6 +8,10 @@
 import Foundation
 
 struct Unit: Codable {
-    var id: String
-    var days: [Day]
+    let id: String
+    let days: [Day]
+    
+    var formattedId: String {
+        return "Unit \(id.filter { $0.isNumber })"
+    }
 }

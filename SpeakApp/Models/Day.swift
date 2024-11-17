@@ -8,8 +8,8 @@
 import Foundation
 
 struct Day: Codable {
-    var id: String
-    var title: String
-    var subtitle: String
-    var thumbnailImageUrl:  String
+    let id: String
+    let title: String
+    let subtitle: String
+    let thumbnailImageUrl:  String
 }

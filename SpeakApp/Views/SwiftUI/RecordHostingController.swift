@@ -8,7 +8,7 @@
 import SwiftUI
 import UIKit
 
-// Adding this subclase for better seperation of SwiftUI and UIKit components
+// This subclase allows for better seperation of SwiftUI and UIKit components
 
 class RecordHostingController: UIHostingController<RecordView> {
     
