@@ -12,7 +12,16 @@ class CourseViewModel {
     private static let unitImage = UIImage(named: "Unit")!
     private static let dayImage = UIImage(named: "Day")!
     
+    private let courseService: CourseService
+    private let imageService: ImageService
+    
     var course: Course?
+    
+    // Supports future testability
+    init(courseService: CourseService = CourseService.shared, imageService: ImageService = ImageService.shared) {
+        self.courseService = courseService
+        self.imageService = imageService
+    }
     
     func fetchCourse() {
         CourseService.shared.fetch() { course in
@@ -26,13 +35,12 @@ class CourseViewModel {
             return
         }
         
-        DataService.shared.dataForUrl(url) { data in
-            guard let data = data, let image = UIImage(data: data) else {
+        ImageService.shared.dataForUrl(url) { image in
+            if let image = image {
+                completion(image)
+            } else {
                 completion(Self.dayImage)
-                return
             }
-            
-            completion(image)
         }
     }
     
@@ -46,13 +54,12 @@ class CourseViewModel {
             return
         }
         
-        DataService.shared.dataForUrl(url) { data in
-            guard let data = data, let image = UIImage(data: data) else {
+        ImageService.shared.dataForUrl(url) { image in
+            if let image = image {
+                completion(image)
+            } else {
                 completion(Self.dayImage)
-                return
             }
-            
-            completion(image)
         }
     }
 }

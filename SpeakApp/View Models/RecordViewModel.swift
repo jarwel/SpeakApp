@@ -9,10 +9,16 @@ import Foundation
 
 @Observable
 class RecordViewModel {
-    private let service: RecordService = RecordService.shared
-    private let client: AsrClient = AsrClient.shared
+    private let client: AsrClient
+    private let service: RecordService
     
     var message: String = ""
+    
+    // Supports future testability
+    init(client: AsrClient = AsrClient.shared, service: RecordService = RecordService.shared) {
+        self.client = client
+        self.service = service
+    }
     
     func record() {
         client.start(learningLocale: Locale.current)
