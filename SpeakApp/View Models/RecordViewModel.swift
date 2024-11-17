@@ -18,6 +18,7 @@ class RecordViewModel {
     init(client: AsrClient = AsrClient.shared, service: RecordService = RecordService.shared) {
         self.client = client
         self.service = service
+        client.delegate = self
     }
     
     func record() {
@@ -30,3 +31,11 @@ class RecordViewModel {
     }
     
 }
+
+extension RecordViewModel: AsrClientDelegate {
+    
+    func onRecive(_ text: String) {
+        
+    }
+}
+

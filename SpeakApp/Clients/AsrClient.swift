@@ -7,6 +7,10 @@
 
 import Foundation
 
+protocol AsrClientDelegate {
+    func onRecive(_ text: String)
+}
+
 class AsrClient: NSObject {
     static let shared = AsrClient()
     
@@ -18,6 +22,8 @@ class AsrClient: NSObject {
     private let encoder = JSONEncoder()
     
     private var task: URLSessionWebSocketTask
+    
+    var delegate: AsrClientDelegate?
     
     private override init() {
         var request = URLRequest(url: Self.url)

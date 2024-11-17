@@ -16,6 +16,7 @@ class RecordService {
     
     private init() {}
     
+    // Using a completion handler in case it needs to move to a background thread
     func fetch(_ completion: @escaping ([AsrStreamEvent]) -> Void) {
         do {
             let data = try Data(contentsOf: URL(fileURLWithPath: Self.filePath))

@@ -9,6 +9,7 @@ import UIKit
 
 
 class CourseTableViewController: UIViewController {
+    @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var subtitleLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var thumbnailImageView: UIImageView!
@@ -16,6 +17,7 @@ class CourseTableViewController: UIViewController {
     
     private static let tableCellReuseIdentifier = "CourseTableViewCell"
     private static let tableHeaderReuseIdentifier = "CourseTableViewHeaderView"
+    private static let headerBackground = UIImage(named: "Header")!
     
     let viewModel = CourseViewModel()
     
@@ -30,6 +32,7 @@ class CourseTableViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        headerView.backgroundColor = UIColor(patternImage: Self.headerBackground)
         if let course = viewModel.course {
             titleLabel.font = .preferredFont(forTextStyle: .headline)
             titleLabel.text =  course.info.title

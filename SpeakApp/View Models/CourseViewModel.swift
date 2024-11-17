@@ -24,7 +24,7 @@ class CourseViewModel {
     }
     
     func fetchCourse() {
-        CourseService.shared.fetch() { course in
+        courseService.fetch() { course in
             self.course = course
         }
     }
@@ -35,7 +35,7 @@ class CourseViewModel {
             return
         }
         
-        ImageService.shared.dataForUrl(url) { image in
+        imageService.dataForUrl(url) { image in
             if let image = image {
                 completion(image)
             } else {
@@ -54,7 +54,7 @@ class CourseViewModel {
             return
         }
         
-        ImageService.shared.dataForUrl(url) { image in
+        imageService.dataForUrl(url) { image in
             if let image = image {
                 completion(image)
             } else {
