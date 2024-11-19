@@ -9,11 +9,8 @@ import UIKit
 
 
 class CourseTableViewController: UIViewController {
-    @IBOutlet weak var headerView: UIView!
+    @IBOutlet weak var headerView: CourseHeaderView!
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var subtitleLabel: UILabel!
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var thumbnailImageView: UIImageView!
     
     private static let tableCellReuseIdentifier = "CourseTableViewCell"
     private static let tableHeaderReuseIdentifier = "CourseTableViewHeaderView"
@@ -34,18 +31,10 @@ class CourseTableViewController: UIViewController {
         super.viewDidAppear(animated)
         headerView.backgroundColor = UIColor(patternImage: Self.headerBackground)
         if let course = viewModel.course {
-            titleLabel.font = .preferredFont(forTextStyle: .extraLargeTitle2)
-            titleLabel.text =  course.info.title
-            subtitleLabel.font = .preferredFont(forTextStyle: .subheadline)
-            subtitleLabel.text = course.info.subtitle
-            
-            // Crop image to circle
-            thumbnailImageView.clipsToBounds = true
-            thumbnailImageView.layer.masksToBounds = true
-            thumbnailImageView.layer.cornerRadius = thumbnailImageView.frame.height / 2
-            
+            headerView.titleLabel.text =  course.info.title
+            headerView.subtitleLabel.text = course.info.subtitle
             viewModel.image(for: course){ [weak self] image in
-                self?.thumbnailImageView.image = image
+                self?.headerView.thumbnailImageView.image = image
             }
         }
         tableView.reloadData()
@@ -80,7 +69,7 @@ extension CourseTableViewController: UITableViewDataSource {
             // Crop image to circle
             cell.thumbnailImageView.clipsToBounds = true
             cell.thumbnailImageView.layer.masksToBounds = true
-            cell.thumbnailImageView.layer.cornerRadius = thumbnailImageView.frame.height / 2
+            cell.thumbnailImageView.layer.cornerRadius = cell.thumbnailImageView.frame.height / 2
             
             viewModel.image(for: day) { image in
                 // Only update the image if cell has not been reused

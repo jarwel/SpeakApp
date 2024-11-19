@@ -16,7 +16,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ths-DN-Lts">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ths-DN-Lts" customClass="CourseHeaderView" customModule="SpeakApp" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="102.99999999999999" width="393" height="167.66666666666663"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="oD7-ft-dM5">
@@ -49,6 +49,11 @@
                                     <constraint firstItem="KrS-xD-S2V" firstAttribute="top" secondItem="oD7-ft-dM5" secondAttribute="bottom" constant="20" id="nhD-FB-zc0"/>
                                     <constraint firstItem="oD7-ft-dM5" firstAttribute="top" secondItem="Ths-DN-Lts" secondAttribute="top" constant="47" id="t54-L2-Snx"/>
                                 </constraints>
+                                <connections>
+                                    <outlet property="subtitleLabel" destination="7bc-YH-1IA" id="l9G-Mm-giP"/>
+                                    <outlet property="thumbnailImageView" destination="oD7-ft-dM5" id="U8h-u6-gxn"/>
+                                    <outlet property="titleLabel" destination="KrS-xD-S2V" id="xCk-Om-63i"/>
+                                </connections>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsMultipleSelection="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" estimatedSectionHeaderHeight="-1" sectionFooterHeight="28" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="E6E-EG-nxr">
                                 <rect key="frame" x="0.0" y="270.66666666666669" width="393" height="581.33333333333326"/>
@@ -188,10 +193,7 @@
                     <navigationItem key="navigationItem" id="wxE-A4-8yy"/>
                     <connections>
                         <outlet property="headerView" destination="Ths-DN-Lts" id="Lep-od-QHi"/>
-                        <outlet property="subtitleLabel" destination="7bc-YH-1IA" id="VsR-XJ-DsI"/>
                         <outlet property="tableView" destination="E6E-EG-nxr" id="uUG-HY-r29"/>
-                        <outlet property="thumbnailImageView" destination="oD7-ft-dM5" id="vRC-4u-B8Q"/>
-                        <outlet property="titleLabel" destination="KrS-xD-S2V" id="1Na-yz-wqb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
