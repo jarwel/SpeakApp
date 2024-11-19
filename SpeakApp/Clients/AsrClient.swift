@@ -7,11 +7,7 @@
 
 import Foundation
 
-protocol AsrClientDelegate {
-    func onRecive(_ text: String)
-}
-
-class AsrClient: NSObject {
+class AsrClient: NSObject, SpeakService {
     static let shared = AsrClient()
     
     private static let url = URL(string: "wss://speak-api--feature-mobile-websocket-interview.preview.usespeak.dev/v2/ws")!
@@ -23,7 +19,7 @@ class AsrClient: NSObject {
     
     private var task: URLSessionWebSocketTask
     
-    var delegate: AsrClientDelegate?
+    var delegate: SpeakServiceDelegate?
     
     private override init() {
         var request = URLRequest(url: Self.url)
@@ -34,7 +30,9 @@ class AsrClient: NSObject {
         super.init()
         task.delegate = self
         task.resume()
-        listen()
+        listen { [weak self] text in
+            self?.delegate?.onTranslationRecieved(text)
+        }
     }
     
     func start(learningLocale: Locale) {
@@ -57,16 +55,7 @@ class AsrClient: NSObject {
         }
     }
     
-    private func send(data: Data) {
-        let message = URLSessionWebSocketTask.Message.data(data)
-        task.send(message) { error in
-            if let error = error {
-                print("Error sending message: \(error)")
-            }
-        }
-    }
-    
-    func listen()  {
+    func listen(callback: @escaping (String) -> Void)  {
         task.receive { result in
             switch result {
             case .failure(let error):
@@ -80,8 +69,16 @@ class AsrClient: NSObject {
                 @unknown default:
                     fatalError()
                 }
-                
-                self.listen()
+                callback("Test")
+            }
+        }
+    }
+    
+    private func send(data: Data) {
+        let message = URLSessionWebSocketTask.Message.data(data)
+        task.send(message) { error in
+            if let error = error {
+                print("Error sending message: \(error)")
             }
         }
     }

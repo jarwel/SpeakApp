@@ -12,11 +12,11 @@ struct RecordView: View {
     
     var body: some View {
         VStack {
-            Text(viewModel.message)
+            Text(viewModel.text)
             Spacer()
                 .frame(height: 25)
             Button {
-                viewModel.record()
+                viewModel.stream()
             } label: {
                 Image("Record")
             }

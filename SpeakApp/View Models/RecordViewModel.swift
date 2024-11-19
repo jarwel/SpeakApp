@@ -9,33 +9,41 @@ import Foundation
 
 @Observable
 class RecordViewModel {
-    private let client: AsrClient
-    private let service: RecordService
+    private let recordService: RecordService
     
-    var message: String = ""
+    private var speakService: SpeakService
+    private var events = [AsrStreamEvent]()
+    
+    var text = ""
     
     // Supports future testability
-    init(client: AsrClient = AsrClient.shared, service: RecordService = RecordService.shared) {
-        self.client = client
-        self.service = service
-        client.delegate = self
+    init(speakService: SpeakService = AsrClient.shared, recordService: RecordService = RecordService.shared) {
+        self.recordService = recordService
+        self.speakService = speakService
+        self.speakService.delegate = self
     }
     
-    func record() {
-        client.start(learningLocale: Locale.current)
-        service.fetch { [weak self] events in
-            //for event in events {
-            //self?.client.stream(event: events.last!)
-            //}
+    func load() {
+        recordService.fetch { [weak self] events in
+            self?.events = events.reversed()
         }
+    }
+    
+    func stream() {
+        guard let event = events.popLast() else {
+            print("No more events to stream")
+            return
+        }
+        
+        speakService.stream(event: event)
     }
     
 }
 
-extension RecordViewModel: AsrClientDelegate {
+extension RecordViewModel: SpeakServiceDelegate {
     
-    func onRecive(_ text: String) {
-        
+    func onTranslationRecieved(_ text: String) {
+        self.text = text
     }
 }
 
