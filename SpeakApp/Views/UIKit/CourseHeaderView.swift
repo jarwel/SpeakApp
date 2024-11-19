@@ -12,8 +12,11 @@ class CourseHeaderView: UIView {
     @IBOutlet weak var subtitleLabel: UILabel!
     @IBOutlet weak var thumbnailImageView: UIImageView!
     
+    private static let headerBackground = UIImage(named: "Header")!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
+        backgroundColor = UIColor(patternImage: Self.headerBackground)
         titleLabel.font = .preferredFont(forTextStyle: .extraLargeTitle2)
         subtitleLabel.font = .preferredFont(forTextStyle: .subheadline)
         

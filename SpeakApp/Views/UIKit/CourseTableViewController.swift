@@ -14,7 +14,6 @@ class CourseTableViewController: UIViewController {
     
     private static let tableCellReuseIdentifier = "CourseTableViewCell"
     private static let tableHeaderReuseIdentifier = "CourseTableViewHeaderView"
-    private static let headerBackground = UIImage(named: "Header")!
     
     let viewModel = CourseViewModel()
     
@@ -29,7 +28,6 @@ class CourseTableViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        headerView.backgroundColor = UIColor(patternImage: Self.headerBackground)
         if let course = viewModel.course {
             headerView.titleLabel.text =  course.info.title
             headerView.subtitleLabel.text = course.info.subtitle
