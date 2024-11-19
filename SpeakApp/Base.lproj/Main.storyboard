@@ -17,23 +17,23 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ths-DN-Lts" customClass="CourseHeaderView" customModule="SpeakApp" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="102.99999999999999" width="393" height="167.66666666666663"/>
+                                <rect key="frame" x="0.0" y="102.99999999999999" width="393" height="175.66666666666663"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="oD7-ft-dM5">
-                                        <rect key="frame" x="166.66666666666666" y="47" width="60" height="60"/>
+                                        <rect key="frame" x="146.66666666666666" y="15" width="100" height="100"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="60" id="qg7-ge-Szn"/>
-                                            <constraint firstAttribute="height" constant="60" id="zPQ-sq-llh"/>
+                                            <constraint firstAttribute="width" constant="100" id="qg7-ge-Szn"/>
+                                            <constraint firstAttribute="height" constant="100" id="zPQ-sq-llh"/>
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KrS-xD-S2V">
-                                        <rect key="frame" x="180" y="126.99999999999999" width="33" height="20.333333333333329"/>
+                                        <rect key="frame" x="180" y="135" width="33" height="20.333333333333343"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7bc-YH-1IA">
-                                        <rect key="frame" x="167.33333333333334" y="147.33333333333334" width="58.333333333333343" height="20.333333333333343"/>
+                                        <rect key="frame" x="167.33333333333334" y="155.33333333333331" width="58.333333333333343" height="20.333333333333343"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" systemColor="secondaryLabelColor"/>
                                         <nil key="highlightedColor"/>
@@ -41,13 +41,13 @@
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="7bc-YH-1IA" secondAttribute="bottom" id="QTU-q4-IHW"/>
                                     <constraint firstItem="7bc-YH-1IA" firstAttribute="centerX" secondItem="Ths-DN-Lts" secondAttribute="centerX" id="W2e-zt-5h2"/>
                                     <constraint firstItem="oD7-ft-dM5" firstAttribute="centerX" secondItem="Ths-DN-Lts" secondAttribute="centerX" id="a5q-NP-9Nd"/>
                                     <constraint firstItem="7bc-YH-1IA" firstAttribute="top" secondItem="KrS-xD-S2V" secondAttribute="bottom" id="hLB-eo-R3j"/>
-                                    <constraint firstItem="oD7-ft-dM5" firstAttribute="centerX" secondItem="KrS-xD-S2V" secondAttribute="centerX" id="nUl-4A-LUS"/>
                                     <constraint firstItem="KrS-xD-S2V" firstAttribute="top" secondItem="oD7-ft-dM5" secondAttribute="bottom" constant="20" id="nhD-FB-zc0"/>
-                                    <constraint firstItem="oD7-ft-dM5" firstAttribute="top" secondItem="Ths-DN-Lts" secondAttribute="top" constant="47" id="t54-L2-Snx"/>
+                                    <constraint firstItem="KrS-xD-S2V" firstAttribute="centerX" secondItem="Ths-DN-Lts" secondAttribute="centerX" id="sVQ-bn-ujo"/>
+                                    <constraint firstItem="oD7-ft-dM5" firstAttribute="top" secondItem="Ths-DN-Lts" secondAttribute="top" constant="15" id="t54-L2-Snx"/>
+                                    <constraint firstAttribute="bottom" secondItem="7bc-YH-1IA" secondAttribute="bottom" id="tXb-gv-bIp"/>
                                 </constraints>
                                 <connections>
                                     <outlet property="subtitleLabel" destination="7bc-YH-1IA" id="l9G-Mm-giP"/>
@@ -56,7 +56,7 @@
                                 </connections>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsMultipleSelection="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" estimatedSectionHeaderHeight="-1" sectionFooterHeight="28" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="E6E-EG-nxr">
-                                <rect key="frame" x="0.0" y="270.66666666666669" width="393" height="581.33333333333326"/>
+                                <rect key="frame" x="0.0" y="278.66666666666669" width="393" height="573.33333333333326"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="CourseTableViewCell" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CourseTableViewHeaderView" rowHeight="110" id="tz1-Jv-h0J" customClass="CourseTableViewHeaderView" customModule="SpeakApp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="50" width="393" height="110"/>
