@@ -8,18 +8,38 @@
 import SwiftUI
 
 struct RecordView: View {
-    @State var viewModel = RecordViewModel()
+    private enum Constants {
+        static let startText = "Touch to start recording"
+        static let buttonSize = CGFloat(75)
+        static let buttonColor = Color(uiColor: UIColor.secondaryLabel)
+        static let buttonImage = "Record"
+        static let buttonSpacing = CGFloat(20)
+    }
+    
+    @State var viewModel = RecordViewModel(speakService: SpeakServiceMock())
     
     var body: some View {
         VStack {
-            Text(viewModel.text)
+            Text(viewModel.text ?? Constants.startText)
+                .frame(maxHeight: .infinity)
+                .font(.largeTitle)
             Spacer()
-                .frame(height: 25)
+                .frame(height: Constants.buttonSpacing)
             Button {
-                viewModel.stream()
+                if viewModel.hasEvents {
+                    viewModel.stream()
+                } else {
+                    viewModel.load()
+                    viewModel.stream()
+                }
             } label: {
-                Image("Record")
+                Image(Constants.buttonImage)
+                    .frame(width: Constants.buttonSize, height: Constants.buttonSize)
+                    .background(Constants.buttonColor)
+                    .clipShape(Circle())
             }
+            Spacer()
+                .frame(height: Constants.buttonSpacing)
         }
     }
 }

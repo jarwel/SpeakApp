@@ -12,7 +12,10 @@ class CourseHeaderView: UIView {
     @IBOutlet weak var subtitleLabel: UILabel!
     @IBOutlet weak var thumbnailImageView: UIImageView!
     
-    private static let backgroundImage = UIImage(named: "Header")!
+    private enum Constants {
+        static let backgroundImage = UIImage(named: "Header")!
+        static let backgroundImageSpacing = CGFloat(50)
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -25,7 +28,7 @@ class CourseHeaderView: UIView {
         thumbnailImageView.layer.cornerRadius = thumbnailImageView.frame.height / 2
         
         // Add image to background
-        let backgoundView = UIImageView(image: Self.backgroundImage)
+        let backgoundView = UIImageView(image: Constants.backgroundImage)
         backgoundView.contentMode = .scaleAspectFill
         backgoundView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(backgoundView)
@@ -34,7 +37,7 @@ class CourseHeaderView: UIView {
             NSLayoutConstraint(item: backgoundView, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1, constant: 0),
             NSLayoutConstraint(item: backgoundView, attribute: .leading, relatedBy: .equal, toItem: self, attribute: .leading, multiplier: 1, constant: 0),
             NSLayoutConstraint(item: backgoundView, attribute: .trailing, relatedBy: .equal, toItem: self, attribute: .trailing, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: backgoundView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 50)
+            NSLayoutConstraint(item: backgoundView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: Constants.backgroundImageSpacing)
         ])
     }
 }

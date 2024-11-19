@@ -14,7 +14,8 @@ class RecordViewModel {
     private var speakService: SpeakService
     private var events = [AsrStreamEvent]()
     
-    var text = ""
+    var text: String?
+    var hasEvents = false
     
     // Supports future testability
     init(speakService: SpeakService = AsrClient.shared, recordService: RecordService = RecordService.shared) {
@@ -26,16 +27,18 @@ class RecordViewModel {
     func load() {
         recordService.fetch { [weak self] events in
             self?.events = events.reversed()
+            self?.hasEvents = true
+            self?.speakService.start(learningLocale: Locale.current)
         }
     }
     
     func stream() {
-        guard let event = events.popLast() else {
-            print("No more events to stream")
-            return
+        if let event = events.popLast() {
+            speakService.stream(event: event)
+        } else {
+            hasEvents = false
+            text = nil
         }
-        
-        speakService.stream(event: event)
     }
     
 }

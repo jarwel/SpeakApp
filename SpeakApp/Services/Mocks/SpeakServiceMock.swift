@@ -7,15 +7,17 @@
 
 import Foundation
 
-@testable import SpeakApp
-
 class SpeakServiceMock: SpeakService {
     
     var delegate: SpeakServiceDelegate?
     
     var events = [AsrStreamEvent]()
+    var isRecording = false
     
-    func start(learningLocale: Locale) {}
+    func start(learningLocale: Locale) {
+        isRecording = true
+    }
+    
     func listen(callback: @escaping (String) -> Void) {}
     
     func stream(event: AsrStreamEvent) {

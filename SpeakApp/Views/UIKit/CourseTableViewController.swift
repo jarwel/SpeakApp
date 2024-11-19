@@ -12,17 +12,21 @@ class CourseTableViewController: UIViewController {
     @IBOutlet weak var headerView: CourseHeaderView!
     @IBOutlet weak var tableView: UITableView!
     
-    private static let tableCellReuseIdentifier = "CourseTableViewCell"
-    private static let tableHeaderReuseIdentifier = "CourseTableViewHeaderView"
+    private enum Constants {
+        static let tableHeaderReuseIdentifier = "CourseTableViewHeaderView"
+        static let tableHeaderEstimatedHeight = CGFloat(60)
+        static let tableCellReuseIdentifier = "CourseTableViewCell"
+        static let tableCellEstimatedHeight = CGFloat(80)
+    }
     
     let viewModel = CourseViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.sectionHeaderHeight = UITableView.automaticDimension
-        tableView.estimatedSectionHeaderHeight = 60
+        tableView.estimatedSectionHeaderHeight = Constants.tableHeaderEstimatedHeight
         tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = 80
+        tableView.estimatedRowHeight = Constants.tableCellEstimatedHeight
         viewModel.fetchCourse()
     }
     
@@ -50,9 +54,9 @@ extension CourseTableViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: Self.tableCellReuseIdentifier, for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.tableCellReuseIdentifier, for: indexPath)
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: Self.tableCellReuseIdentifier, for: indexPath) as? CourseTableViewCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: Constants.tableCellReuseIdentifier, for: indexPath) as? CourseTableViewCell else {
             return cell
         }
         
@@ -80,7 +84,7 @@ extension CourseTableViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard let headerView = tableView.dequeueReusableCell(withIdentifier: Self.tableHeaderReuseIdentifier) as? CourseTableViewHeaderView else {
+        guard let headerView = tableView.dequeueReusableCell(withIdentifier: Constants.tableHeaderReuseIdentifier) as? CourseTableViewHeaderView else {
             return nil
         }
         

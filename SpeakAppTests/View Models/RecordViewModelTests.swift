@@ -11,7 +11,18 @@ import Testing
 
 struct RecordViewModelTests {
     
-    @Test func should_return_translation() async throws {
+    @Test("Start Recording")
+    func should_return_start_service() async throws {
+        let mock = SpeakServiceMock()
+        let viewModel = RecordViewModel(speakService: mock)
+        viewModel.load()
+        viewModel.stream()
+        
+        #expect(mock.isRecording)
+    }
+    
+    @Test("Return Translation")
+    func should_return_translated_text() async throws {
         let viewModel = RecordViewModel(speakService: SpeakServiceMock())
 
         viewModel.load()

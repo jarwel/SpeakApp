@@ -30,18 +30,10 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		109A01262CED14D10092A2BB /* Exceptions for "SpeakApp" folder in "SpeakAppTests" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Services/Mocks/SpeakServiceMock.swift,
-			);
-			target = 10EA15212CDFBBCF006F57AE /* SpeakAppTests */;
-		};
 		10EA15342CDFBBCF006F57AE /* Exceptions for "SpeakApp" folder in "SpeakApp" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
-				Services/Mocks/SpeakServiceMock.swift,
 			);
 			target = 10EA150B2CDFBBCE006F57AE /* SpeakApp */;
 		};
@@ -52,7 +44,6 @@
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
 				10EA15342CDFBBCF006F57AE /* Exceptions for "SpeakApp" folder in "SpeakApp" target */,
-				109A01262CED14D10092A2BB /* Exceptions for "SpeakApp" folder in "SpeakAppTests" target */,
 			);
 			path = SpeakApp;
 			sourceTree = "<group>";
