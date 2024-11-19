@@ -12,6 +12,6 @@ struct Unit: Codable {
     let days: [Day]
     
     var formattedId: String {
-        return "Unit \(id.dropFirst(5))"
+        return "Unit \((Int(id.dropFirst(5)) ?? 0) + 1)"
     }
 }

@@ -62,6 +62,7 @@
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="yTc-81-oCQ">
                                                     <rect key="frame" x="181.66666666666666" y="11" width="30" height="30"/>
+                                                    <color key="tintColor" systemColor="secondaryLabelColor"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="30" id="kSe-iH-IoC"/>
                                                         <constraint firstAttribute="height" constant="30" id="lkH-9g-qvt"/>
@@ -70,7 +71,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bXC-gb-CPl" userLabel="Title">
                                                     <rect key="frame" x="180" y="46" width="33" height="49"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
+                                                    <color key="textColor" systemColor="secondaryLabelColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -160,8 +161,8 @@
                                         <connections>
                                             <outlet property="dayLabel" destination="P5w-JX-fyp" id="3BY-Ln-VDf"/>
                                             <outlet property="subtitleLabel" destination="YRs-mH-0XH" id="I84-Lg-6sn"/>
+                                            <outlet property="thumbnailImageView" destination="1dq-87-kmB" id="xJY-Wd-02o"/>
                                             <outlet property="titleLabel" destination="M5T-xv-3uM" id="DGY-B6-H56"/>
-                                            <outlet property="tumbnailImageView" destination="1dq-87-kmB" id="a3P-bV-5xu"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

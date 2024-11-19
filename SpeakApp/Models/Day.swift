@@ -13,6 +13,7 @@ struct Day: Codable {
     let subtitle: String
     let thumbnailImageUrl:  String
     
+    // Day zero is a valid value as shown in the example image
     var formattedId: String {
         return String(format: "%02d", Int(id.dropFirst(4)) ?? 0)
     }

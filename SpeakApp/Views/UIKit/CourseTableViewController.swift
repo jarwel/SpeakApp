@@ -38,6 +38,12 @@ class CourseTableViewController: UIViewController {
             titleLabel.text =  course.info.title
             subtitleLabel.font = .preferredFont(forTextStyle: .subheadline)
             subtitleLabel.text = course.info.subtitle
+            
+            // Crop image to circle
+            thumbnailImageView.clipsToBounds = true
+            thumbnailImageView.layer.masksToBounds = true
+            thumbnailImageView.layer.cornerRadius = thumbnailImageView.frame.height / 2
+            
             viewModel.image(for: course){ [weak self] image in
                 self?.thumbnailImageView.image = image
             }
@@ -69,11 +75,17 @@ extension CourseTableViewController: UITableViewDataSource {
             cell.titleLabel.text =  day.title
             cell.subtitleLabel.font = .preferredFont(forTextStyle: .subheadline)
             cell.subtitleLabel.text = day.subtitle
-            cell.tumbnailImageView.image = nil
+            cell.thumbnailImageView.image = nil
+            
+            // Crop image to circle
+            cell.thumbnailImageView.clipsToBounds = true
+            cell.thumbnailImageView.layer.masksToBounds = true
+            cell.thumbnailImageView.layer.cornerRadius = thumbnailImageView.frame.height / 2
+            
             viewModel.image(for: day) { image in
                 // Only update the image if cell has not been reused
                 if indexPath == tableView.indexPath(for: cell) {
-                    cell.tumbnailImageView.image = image
+                    cell.thumbnailImageView.image = image
                 }
             }
         }
