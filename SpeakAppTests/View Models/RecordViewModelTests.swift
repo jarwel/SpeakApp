@@ -16,7 +16,6 @@ struct RecordViewModelTests {
         let mock = SpeakServiceMock()
         let viewModel = RecordViewModel(speakService: mock)
         viewModel.load()
-        viewModel.stream()
         
         #expect(mock.isRecording)
     }

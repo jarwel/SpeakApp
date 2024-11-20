@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct AsrMetadataEvent: Codable {
+struct AsrMetadataEvent {
     private(set) var type = "asrMetadata"
     
     let id: String

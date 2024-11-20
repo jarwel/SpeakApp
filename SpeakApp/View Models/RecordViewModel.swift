@@ -16,6 +16,7 @@ class RecordViewModel {
     
     var text: String?
     var hasEvents = false
+    var isRecording = false
     
     // Supports future testability
     init(speakService: SpeakService = AsrClient.shared, recordService: RecordService = RecordService.shared) {
@@ -26,18 +27,19 @@ class RecordViewModel {
     
     func load() {
         recordService.fetch { [weak self] events in
-            self?.events = events.reversed()
+            self?.events = events
+            self?.text = nil
             self?.hasEvents = true
             self?.speakService.start(learningLocale: Locale.current)
         }
     }
     
     func stream() {
-        if let event = events.popLast() {
+        text = nil
+        isRecording = true
+        while events.isEmpty == false {
+            let event = events.removeFirst()
             speakService.stream(event: event)
-        } else {
-            hasEvents = false
-            text = nil
         }
     }
     
@@ -45,8 +47,15 @@ class RecordViewModel {
 
 extension RecordViewModel: SpeakServiceDelegate {
     
-    func onTranslationRecieved(_ text: String) {
-        self.text = text
+    func onTranslationRecieved(_ text: String, isFinal: Bool) {
+        if let current = self.text {
+            self.text = [current, text].joined(separator: " ")
+        } else {
+            self.text = text
+        }
+        if isFinal {
+            self.isRecording = false
+        }
     }
 }
 

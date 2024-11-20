@@ -8,20 +8,22 @@
 import Foundation
 
 class SpeakServiceMock: SpeakService {
-    
     var delegate: SpeakServiceDelegate?
-    
-    var events = [AsrStreamEvent]()
-    var isRecording = false
+    var isStarted = false
+
+    private var dispatchTime = DispatchTime.now()
     
     func start(learningLocale: Locale) {
-        isRecording = true
+        dispatchTime = DispatchTime.now()
+        isStarted = true
     }
     
-    func listen(callback: @escaping (String) -> Void) {}
-    
     func stream(event: AsrStreamEvent) {
-        delegate?.onTranslationRecieved("t[\(event.chunk)]")
+        // Add random delay for testing and assuming order is maintained
+        dispatchTime = dispatchTime + Double(Int.random(in: 0...1))
+        DispatchQueue.main.asyncAfter(deadline: dispatchTime) { [weak self] in
+            self?.delegate?.onTranslationRecieved("t[word]", isFinal: event.isFinal)
+        }
     }
     
 }

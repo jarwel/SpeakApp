@@ -8,7 +8,7 @@
 import Foundation
 
 protocol SpeakServiceDelegate {
-    func onTranslationRecieved(_ text: String)
+    func onTranslationRecieved(_ text: String, isFinal: Bool)
 }
 
 
@@ -17,5 +17,4 @@ protocol SpeakService {
     
     func start(learningLocale: Locale)
     func stream(event: AsrStreamEvent)
-    func listen(callback: @escaping (String) -> Void)
 }

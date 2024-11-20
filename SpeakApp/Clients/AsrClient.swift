@@ -16,28 +16,27 @@ class AsrClient: NSObject, SpeakService {
     private static let clientInfo = "Speak Interview Test"
     
     private let encoder = JSONEncoder()
+    private let decoder = JSONDecoder()
     
     private var task: URLSessionWebSocketTask
     
     var delegate: SpeakServiceDelegate?
+    var isRecording: Bool
     
     private override init() {
         var request = URLRequest(url: Self.url)
         request.addValue(Self.accessToken, forHTTPHeaderField: "x-access-token")
         request.addValue(Self.clientInfo, forHTTPHeaderField: "x-client-info")
         task = URLSession.shared.webSocketTask(with: request)
+        isRecording = false
         
         super.init()
         task.delegate = self
-        task.resume()
-        listen { [weak self] text in
-            self?.delegate?.onTranslationRecieved(text)
-        }
+        connect()
     }
     
     func start(learningLocale: Locale) {
-        let event = AsrStartEvent(learningLocale: learningLocale.identifier)
-        
+        let event = AsrStartEvent(learningLocale: learningLocale.identifier(.bcp47))
         do {
             let data = try encoder.encode(event)
             send(data: data)
@@ -45,6 +44,7 @@ class AsrClient: NSObject, SpeakService {
             print("Encoder error: \(error.localizedDescription)")
         }
     }
+
     
     func stream(event: AsrStreamEvent) {
         do {
@@ -55,30 +55,52 @@ class AsrClient: NSObject, SpeakService {
         }
     }
     
-    func listen(callback: @escaping (String) -> Void)  {
-        task.receive { result in
-            switch result {
+    func listen() {
+        task.receive { [weak self] message in
+            switch message {
             case .failure(let error):
-                print("failure")
+                print("WebSocket error: \(error.localizedDescription)")
             case .success(let message):
                 switch message {
                 case .string(let text):
                     print("Text: \(text)")
+                    if let data = text.data(using: .utf8) {
+                        do {
+                            let event = try self?.decoder.decode(AsrResultEvent.self, from: data)
+                            self?.delegate?.onTranslationRecieved("Test", isFinal: event?.isFinal ?? true)
+                            self?.listen()
+                            print(event?.type)
+                        } catch {
+                            print("Decoder error: \(error.localizedDescription)")
+                        }
+                    }
                 case .data(let data):
                     print("Data: \(data)")
+                    //decoder.decode(AsrMetadataEvent.self, from: data)
+                    
                 @unknown default:
                     fatalError()
                 }
-                callback("Test")
+               // let data = try Data(contentsOf: message.
+                //let event = try decoder.decode(AsrResultEvent.self, from: data)
             }
         }
+    }
+    
+    private func connect() {
+        task.resume()
+        listen()
+    }
+    
+    private func disconnect() {
+        task.cancel(with: .goingAway, reason: nil)
     }
     
     private func send(data: Data) {
         let message = URLSessionWebSocketTask.Message.data(data)
         task.send(message) { error in
             if let error = error {
-                print("Error sending message: \(error)")
+                print("WebSocket send error: \(error.localizedDescription)")
             }
         }
     }
